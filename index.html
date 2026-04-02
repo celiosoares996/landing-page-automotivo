@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="pt-br" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="LubriForce - Especialista em Troca de Óleo, Filtros e Manutenção Preventiva de Alta Performance.">
+    <title>LubriForce | Troca de Óleo e Lubrificação Premium</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+    
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .bg-blur { backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
+        .card-hover { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+        .card-hover:hover { transform: translateY(-10px); }
+        
+        .hero-gradient {
+            background: linear-gradient(to right, rgba(15, 23, 42, 1) 30%, rgba(15, 23, 42, 0.7) 60%, transparent 100%);
+        }
+
+        @media (max-width: 768px) {
+            .hero-gradient {
+                background: linear-gradient(to top, rgba(15, 23, 42, 1) 50%, rgba(15, 23, 42, 0.4) 100%);
+            }
+        }
+
+        /* Estilos do Modal */
+        .modal-hidden { display: none; }
+        .modal-visible { display: flex; animation: fadeIn 0.3s ease-out; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900">
+
+    <div id="bookingModal" class="modal-hidden fixed inset-0 z-[200] items-center justify-center bg-slate-900/90 bg-blur px-4">
+        <div class="bg-white w-full max-w-lg rounded-[2.5rem] p-8 md:p-12 shadow-2xl relative">
+            <button onclick="closeModal()" class="absolute top-6 right-6 text-slate-400 hover:text-slate-900 transition">
+                <i class="fa-solid fa-xmark text-2xl"></i>
+            </button>
+            
+            <div class="text-center mb-8">
+                <span id="modalServiceTitle" class="text-amber-500 font-black text-[10px] uppercase tracking-[0.3em]">SERVIÇO SELECIONADO</span>
+                <h3 id="serviceDisplayName" class="text-3xl font-black uppercase tracking-tighter italic mt-1">Troca de Óleo</h3>
+            </div>
+
+            <form id="whatsappForm" class="space-y-4">
+                <input type="hidden" id="hiddenServiceField">
+                
+                <div>
+                    <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-4 mb-1 block">Seu Nome</label>
+                    <input type="text" id="clientName" required placeholder="EX: MARCOS OLIVEIRA" class="w-full p-4 bg-slate-100 border-none rounded-2xl focus:ring-2 focus:ring-amber-500 outline-none font-bold text-sm">
+                </div>
+
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-4 mb-1 block">Veículo / Ano</label>
+                        <input type="text" id="clientCar" required placeholder="EX: HILUX 2023" class="w-full p-4 bg-slate-100 border-none rounded-2xl focus:ring-2 focus:ring-amber-500 outline-none font-bold text-sm">
+                    </div>
+                    <div>
+                        <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-4 mb-1 block">Motor (Ex: 1.0, 2.0)</label>
+                        <input type="text" id="clientEngine" required placeholder="EX: 2.8 TURBO" class="w-full p-4 bg-slate-100 border-none rounded-2xl focus:ring-2 focus:ring-amber-500 outline-none font-bold text-sm">
+                    </div>
+                </div>
+
+                <button type="submit" class="w-full bg-amber-500 text-slate-900 py-5 rounded-2xl font-black text-lg hover:bg-amber-400 transition shadow-xl uppercase italic tracking-tighter mt-4 flex items-center justify-center gap-3">
+                    <i class="fa-brands fa-whatsapp text-2xl"></i>
+                    Confirmar via WhatsApp
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <a href="https://wa.me/5588921485651?text=Olá! Gostaria de informações sobre os serviços da LubriForce." 
+       target="_blank"
+       class="fixed bottom-6 right-6 z-[100] bg-green-600 text-white w-16 h-16 rounded-full flex items-center justify-center shadow-2xl hover:scale-110 transition-all animate-bounce">
+         <i class="fa-brands fa-whatsapp text-3xl"></i>
+    </a>
+
+    <nav class="fixed w-full z-50 bg-white/80 bg-blur border-b border-slate-200">
+        <div class="container mx-auto px-4 md:px-8 py-4 flex justify-between items-center">
+            <div class="flex flex-col">
+                <span class="text-2xl font-black text-slate-900 leading-none tracking-tighter uppercase">LubriForce</span>
+                <span class="text-amber-500 font-bold tracking-[0.3em] text-[10px] ml-0.5 uppercase">Premium Oil Service</span>
+            </div>
+            <div class="hidden md:flex space-x-8 font-bold text-xs uppercase tracking-widest text-slate-600">
+                <a href="#servicos" class="hover:text-amber-600 transition">Serviços</a>
+                <a href="#diferenciais" class="hover:text-amber-600 transition">Diferenciais</a>
+                <a href="#contato" class="hover:text-amber-600 transition">Contato</a>
+            </div>
+            <button onclick="openModal('Orçamento Geral')" class="bg-slate-900 text-white px-6 py-2.5 rounded-full font-bold text-xs hover:bg-amber-500 transition shadow-lg tracking-widest uppercase">
+               Orçamento Rápido
+            </button>
+        </div>
+    </nav>
+
+    <section class="relative min-h-screen flex items-center pt-20 overflow-hidden bg-slate-900">
+        <div class="absolute inset-0 z-0">
+            <img src="https://images.unsplash.com/photo-1589739900243-4b52cd9b104e?q=80&w=2000&auto=format&fit=crop" 
+                 class="w-full h-full object-cover opacity-60 object-center" 
+                 alt="Oficina mecânica profissional">
+            <div class="absolute inset-0 hero-gradient"></div>
+        </div>
+        
+        <div class="container mx-auto px-6 md:px-8 relative z-10 text-white">
+            <div class="max-w-3xl">
+                <div class="flex items-center space-x-3 mb-6 text-amber-500">
+                    <div class="h-1 w-12 bg-amber-500"></div>
+                    <span class="font-bold uppercase tracking-[0.2em] text-xs text-slate-100 italic">Alta Performance</span>
+                </div>
+                <h1 class="text-6xl md:text-8xl font-black mb-6 leading-[0.9] uppercase tracking-tighter">
+                    O Sangue do <br><span class="text-amber-500">Seu Motor</span>.
+                </h1>
+                <p class="text-lg md:text-xl text-slate-300 mb-10 max-w-xl leading-relaxed font-medium">
+                    Troca especializada com as melhores marcas do mundo. Proteja o seu investimento com tecnologia sintética de última geração.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4">
+                    <a href="#servicos" class="bg-amber-500 text-slate-900 px-10 py-5 rounded-xl font-black text-xl text-center hover:bg-amber-400 transition-all shadow-xl shadow-amber-900/40 italic uppercase tracking-tight">
+                        Explorar Serviços
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="servicos" class="py-24 bg-white">
+        <div class="container mx-auto px-6 text-center mb-20">
+            <h2 class="text-4xl md:text-5xl font-black mb-4 uppercase tracking-tighter text-slate-900">Nossas Especialidades</h2>
+            <p class="text-slate-500 max-w-2xl mx-auto italic font-medium uppercase text-xs tracking-widest">Selecione o serviço para agendar</p>
+        </div>
+
+        <div class="container mx-auto px-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div class="p-8 bg-slate-50 border border-slate-100 rounded-[2rem] card-hover shadow-sm flex flex-col relative overflow-hidden">
+                <div class="w-14 h-14 bg-white rounded-2xl shadow-inner flex items-center justify-center mb-8">
+                    <i class="fa-solid fa-droplet text-3xl text-amber-500"></i>
+                </div>
+                <h3 class="font-black text-xl mb-3 uppercase tracking-tight">Óleo Sintético</h3>
+                <p class="text-slate-600 text-sm mb-6 flex-grow leading-relaxed">Máxima proteção contra desgaste e economia de combustível.</p>
+                <button onclick="openModal('Óleo Sintético')" class="w-full bg-slate-900 text-white py-4 rounded-xl font-bold hover:bg-amber-500 transition-colors uppercase text-xs tracking-widest text-center">
+                   Solicitar Orçamento
+                </button>
+            </div>
+
+            <div class="p-8 bg-slate-50 border border-slate-100 rounded-[2rem] card-hover shadow-sm flex flex-col relative overflow-hidden">
+                <div class="w-14 h-14 bg-white rounded-2xl shadow-inner flex items-center justify-center mb-8">
+                    <i class="fa-solid fa-filter text-3xl text-amber-500"></i>
+                </div>
+                <h3 class="font-black text-xl mb-3 uppercase tracking-tight">Kit Filtros</h3>
+                <p class="text-slate-600 text-sm mb-6 flex-grow leading-relaxed">Substituição completa de filtros de ar, óleo e combustível.</p>
+                <button onclick="openModal('Kit Filtros')" class="w-full bg-slate-900 text-white py-4 rounded-xl font-bold hover:bg-amber-500 transition-colors uppercase text-xs tracking-widest text-center">
+                   Ver Opções de Kit
+                </button>
+            </div>
+
+            <div class="p-8 bg-slate-50 border border-slate-100 rounded-[2rem] card-hover shadow-sm flex flex-col relative overflow-hidden">
+                <div class="w-14 h-14 bg-white rounded-2xl shadow-inner flex items-center justify-center mb-8">
+                    <i class="fa-solid fa-temperature-empty text-3xl text-amber-500"></i>
+                </div>
+                <h3 class="font-black text-xl mb-3 uppercase tracking-tight">Arrefecimento</h3>
+                <p class="text-slate-600 text-sm mb-6 flex-grow leading-relaxed">Limpeza e aditivação para evitar o superaquecimento do motor.</p>
+                <button onclick="openModal('Arrefecimento')" class="w-full bg-slate-900 text-white py-4 rounded-xl font-bold hover:bg-amber-500 transition-colors uppercase text-xs tracking-widest text-center">
+                   Agendar Agora
+                </button>
+            </div>
+
+            <div class="p-8 bg-slate-50 border border-slate-100 rounded-[2rem] card-hover shadow-sm flex flex-col relative overflow-hidden">
+                <div class="w-14 h-14 bg-white rounded-2xl shadow-inner flex items-center justify-center mb-8">
+                    <i class="fa-solid fa-wind text-3xl text-amber-500"></i>
+                </div>
+                <h3 class="font-black text-xl mb-3 uppercase tracking-tight">Higienização</h3>
+                <p class="text-slate-600 text-sm mb-6 flex-grow leading-relaxed">Eliminação de bactérias através da tecnologia de ozônio.</p>
+                <button onclick="openModal('Higienização')" class="w-full bg-slate-900 text-white py-4 rounded-xl font-bold hover:bg-amber-500 transition-colors uppercase text-xs tracking-widest text-center">
+                   Saber Mais
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <section id="diferenciais" class="py-24 bg-slate-900 text-white">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-16 text-center">
+                <div class="flex flex-col items-center">
+                    <i class="fa-solid fa-award text-4xl text-amber-500 mb-6"></i>
+                    <h4 class="font-black uppercase text-lg tracking-tight">Marcas Líderes</h4>
+                    <p class="text-slate-400 text-sm mt-3 leading-relaxed">Trabalhamos com marcas homologadas pelas montadoras.</p>
+                </div>
+                <div class="flex flex-col items-center">
+                    <i class="fa-solid fa-stopwatch text-4xl text-amber-500 mb-6"></i>
+                    <h4 class="font-black uppercase text-lg tracking-tight">Serviço Rápido</h4>
+                    <p class="text-slate-400 text-sm mt-3 leading-relaxed">Agilidade premium com agendamento prévio via WhatsApp.</p>
+                </div>
+                <div class="flex flex-col items-center">
+                    <i class="fa-solid fa-mug-hot text-4xl text-amber-500 mb-6"></i>
+                    <h4 class="font-black uppercase text-lg tracking-tight">Conforto Total</h4>
+                    <p class="text-slate-400 text-sm mt-3 leading-relaxed">Sala VIP com Wi-Fi e café enquanto cuidamos da sua máquina.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contato" class="py-24 bg-slate-50">
+        <div class="container mx-auto px-6">
+            <div class="bg-white text-slate-900 rounded-[3.5rem] overflow-hidden shadow-2xl grid md:grid-cols-2">
+                <div class="p-10 md:p-16">
+                    <h3 class="text-4xl font-black mb-4 uppercase tracking-tighter italic">Fale Conosco</h3>
+                    <p class="text-slate-500 mb-10 font-medium">Clique no botão abaixo para iniciar o orçamento rápido via WhatsApp.</p>
+                    <div class="space-y-4">
+                        <button onclick="openModal('Orçamento Direto')" class="flex items-center justify-center gap-4 w-full bg-amber-500 text-slate-900 py-6 rounded-2xl font-black text-xl hover:bg-amber-400 transition shadow-xl uppercase italic tracking-tighter">
+                            <i class="fa-brands fa-whatsapp"></i>
+                            Iniciar Orçamento
+                        </button>
+                    </div>
+                </div>
+                <div class="bg-slate-800 p-10 md:p-16 text-white flex flex-col justify-center relative overflow-hidden">
+                    <div class="absolute top-0 right-0 opacity-10 transform translate-x-1/4 -translate-y-1/4">
+                        <i class="fa-solid fa-oil-can text-[20rem]"></i>
+                    </div>
+                    <div class="space-y-12 relative z-10">
+                        <div>
+                            <p class="text-amber-500 text-[10px] font-black uppercase tracking-[0.3em] mb-4 italic">Nossa Unidade</p>
+                            <p class="text-2xl font-black italic leading-tight uppercase">Setor Automotivo Premium<br>Rua de Exemplo, 123 - BR</p>
+                        </div>
+                        <div>
+                            <p class="text-amber-500 text-[10px] font-black uppercase tracking-[0.3em] mb-4 italic">Atendimento</p>
+                            <p class="text-lg font-bold uppercase">Seg-Sex: 08h às 18h<br>Sábados: 08h às 13h</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="py-12 bg-white text-center border-t border-slate-100">
+        <p class="text-slate-400 text-[10px] font-black uppercase tracking-[0.4em]">
+            &copy; 2026 LubriForce Premium - Profissionalismo e Tecnologia
+        </p>
+    </footer>
+    <script src="./js/script.js"></script>
+</body>
+</html>
